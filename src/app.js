@@ -6,7 +6,7 @@ const cookie = require("cookie-parser");
 const path = require("path");
 const flash = require("connect-flash");
 require("dotenv").config();
-const { linkRouter } = require("./routes");
+const { linkRouter, AuthRouter } = require("./routes");
 
 const app = express();
 app.set("views", path.join(__dirname, "views"));
@@ -26,6 +26,7 @@ app.use(
 );
 app.use(flash());
 
-app.use("/", linkRouter);
+app.use("/link", linkRouter);
+app.use("/auth", AuthRouter);
 
 module.exports = app;
