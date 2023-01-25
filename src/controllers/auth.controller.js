@@ -16,7 +16,7 @@ class AuthController {
     try {
       const { email, password } = req.body;
 
-      const data = await axios({
+      const fetchApiLogin = await axios({
         method: "post",
         url: "http://127.0.0.1:3000/v1/auth/login",
         data: {
@@ -25,12 +25,12 @@ class AuthController {
         },
       });
 
-      if (data.status === 200) {
-        res.json(data.data);
-      } else if (data.status === 401) {
-        res.redirect("/auth/login");
-      } else if (data.status === 422) {
-        res.redirect("/auth/login");
+      if (fetchApiLogin.status === 200) {
+        res.cookie("token", fetchApiLogin.data.data.token, {
+          maxAge: 1000 * 60 * 60 * 24 * 7,
+          httpOnly: true,
+        });
+        res.redirect("/link");
       }
     } catch (error) {
       next(error);

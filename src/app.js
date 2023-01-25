@@ -29,6 +29,6 @@ app.use(flash());
 app.use("/link", linkRouter);
 app.use("/auth", AuthRouter);
 
-app.use(require("./middlewares/errorHandler"));
+app.use(require("./middlewares/errorHandler.middleware"));
 
 module.exports = app;
