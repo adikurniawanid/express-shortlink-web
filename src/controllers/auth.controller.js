@@ -1,6 +1,6 @@
 "use strict";
 const axios = require("axios");
-
+const { API_URL } = process.env;
 class AuthController {
   static async index(req, res, next) {
     try {
@@ -18,7 +18,7 @@ class AuthController {
 
       const fetchApiLogin = await axios({
         method: "post",
-        url: "http://127.0.0.1:3000/v1/auth/login",
+        url: API_URL + "/auth/login",
         data: {
           email,
           password,
@@ -32,6 +32,17 @@ class AuthController {
         });
         res.redirect("/link");
       }
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async logout(req, res, next) {
+    try {
+      res.clearCookie("token");
+      res.render("auth/login", {
+        layout: "layouts/auth",
+      });
     } catch (error) {
       next(error);
     }

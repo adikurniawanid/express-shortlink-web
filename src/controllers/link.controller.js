@@ -1,15 +1,15 @@
 "use strict";
 const axios = require("axios");
+const { API_URL } = process.env;
 
 class LinkController {
   static async list(req, res, next) {
     try {
       const data = await axios({
         method: "get",
-        url: "http://127.0.0.1:3000/v1/link",
+        url: API_URL + "/link",
         headers: {
-          Authorization:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwdWJsaWNJZCI6IjliMjBkZjg0LWZiYmMtNDcwMC1hYjAyLWJhM2QyNTIwYjYwOCIsImVtYWlsIjoiYWRpa3Vybmlhd2FuQG1haWwuY29tIiwiaWF0IjoxNjc0NDU3NjE2fQ.Zblzc4t6i-p_ZxA6l2xT59a9Yk8REAbCnsd188GXRvM",
+          Authorization: req.cookies.token,
         },
       });
 
@@ -47,10 +47,9 @@ class LinkController {
       const { title, originalUrl, customUrl } = req.body;
       const data = await axios({
         method: "post",
-        url: "http://127.0.0.1:3000/v1/link/short",
+        url: API_URL + "/link/short",
         headers: {
-          Authorization:
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwdWJsaWNJZCI6IjliMjBkZjg0LWZiYmMtNDcwMC1hYjAyLWJhM2QyNTIwYjYwOCIsImVtYWlsIjoiYWRpa3Vybmlhd2FuQG1haWwuY29tIiwiaWF0IjoxNjc0NDU3NjE2fQ.Zblzc4t6i-p_ZxA6l2xT59a9Yk8REAbCnsd188GXRvM",
+          Authorization: req.cookies.token,
         },
         data: {
           title,
