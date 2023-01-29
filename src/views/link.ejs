@@ -1,4 +1,5 @@
 <% title = "Short Link"%>
+<% options = { year: "numeric", month: "long", day: "numeric",hour: '2-digit', minute:'2-digit' } %>
 <div class="page-heading">
     <div class="page-title">
         <div class="row">
@@ -8,7 +9,7 @@
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
                         <li class="breadcrumb-item active" aria-current="page"><%=title%></li>
                     </ol>
                 </nav>
@@ -18,7 +19,10 @@
     <!-- Basic card section start -->
     <section id="content-types">
         <div class="row">
+
+            <% for( let index = 0; index < 3; index++ ) { %>
             <div class="col-xl-4 col-md-6 col-sm-12">
+                <% if (index == 0) { %>
                 <a type="button" class="card btn btn-outline-success" data-bs-toggle="modal"
                     data-bs-target="#inlineForm">
                     <div class="card-body text-center">
@@ -26,156 +30,59 @@
                         <h4>Create New Short Link</h4>
                     </div>
                 </a>
+                <% } %>
+                <% (data[index]).forEach((element,index) => { %>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <h4 class="card-title"><%=element.title%></h4>
+                            <small><i class="bi bi-link-45deg"> </i>
+                                <% if (element.customUrl) { %>
+                                <code>
+                                    <%=element.customUrl%>
+                                </code>
+                                <% } else { %>
+                                <code>
+                                    <%=element.shortUrl%>
+                                </code>
+                                <% } %>
+                            </small>
+                            <br>
+                            <small><i class="bi bi-calendar-check-fill"> </i>Created At
+                                <%=new Date(element.createdAt).toLocaleTimeString("id-ID",  options)%>
+                            </small>
+                            <br>
+                            <small><i class="bi bi-calendar-check-fill"> </i>Last Updated
+                                <%=new Date(element.updatedAt).toLocaleTimeString("id-ID",  options)%></small>
+                            <br>
+                            <small><i class="bi bi-bar-chart-fill"> </i><%=element.clicks%> Total Engagements</small>
+                            <br>
+                            <small><i class="bi bi-arrow-return-right"> </i> Original Url </small> <br>
+                            <code>
+                                <%=element.originalUrl%>
+                            </code>
+                        </div>
+                        <div class="btn-group align-items-center mx-2 px-1">
+                            <button type="button" class="btn btn-link p-2 m-1 text-decoration-none">
+                                <i
+                                    class="bi bi-heart d-flex align-items-center justify-content-center text-secondary"></i>
+                            </button>
+                            <button type="button" class="btn btn-link p-2 m-1 text-decoration-none">
+                                <i
+                                    class="bi bi-chat d-flex align-items-center justify-content-center text-secondary"></i>
+                            </button>
+                            <button type="button" class="btn btn-link p-2 m-1 text-decoration-none">
+                                <i
+                                    class="bi bi-bookmark d-flex align-items-center justify-content-center text-secondary"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+            </div>
+            <% } %>
 
-                <% (data[0]).forEach((element,index) => { %>
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-body">
-                            <h4 class="card-title"><%=element.title%></h4>
-                            <small><i class="bi bi-link-45deg"> </i>
-                                <% if (element.customUrl) { %>
-                                <code>
-                                    <%=element.customUrl%>
-                                </code>
-                                <% } else { %>
-                                <code>
-                                    <%=element.shortUrl%>
-                                </code>
-                                <% } %>
-                            </small>
-                            <br>
-                            <small><i class="bi bi-calendar-check-fill"> </i>Created At
-                                <%=element.createdAt%>
-                            </small>
-                            <br>
-                            <small><i class="bi bi-calendar-check-fill"> </i>Last Updated
-                                <%=element.updatedAt%></small>
-                            <br>
-                            <small><i class="bi bi-bar-chart-fill"> </i><%=element.clicks%> Total Engagements</small>
-                            <br>
-                            <small><i class="bi bi-arrow-return-right"> </i> Original Url </small> <br>
-                            <code>
-                                <%=element.originalUrl%>
-                            </code>
-                        </div>
-                        <div class="btn-group align-items-center mx-2 px-1">
-                            <button type="button" class="btn btn-link p-2 m-1 text-decoration-none">
-                                <i
-                                    class="bi bi-heart d-flex align-items-center justify-content-center text-secondary"></i>
-                            </button>
-                            <button type="button" class="btn btn-link p-2 m-1 text-decoration-none">
-                                <i
-                                    class="bi bi-chat d-flex align-items-center justify-content-center text-secondary"></i>
-                            </button>
-                            <button type="button" class="btn btn-link p-2 m-1 text-decoration-none">
-                                <i
-                                    class="bi bi-bookmark d-flex align-items-center justify-content-center text-secondary"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <% }) %>
-            </div>
-            <div class="col-xl-4 col-md-6 col-sm-12">
-                <% (data[1]).forEach((element,index) => { %>
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-body">
-                            <h4 class="card-title"><%=element.title%></h4>
-                            <small><i class="bi bi-link-45deg"> </i>
-                                <% if (element.customUrl) { %>
-                                <code>
-                                    <%=element.customUrl%>
-                                </code>
-                                <% } else { %>
-                                <code>
-                                    <%=element.shortUrl%>
-                                </code>
-                                <% } %>
-                            </small>
-                            <br>
-                            <small><i class="bi bi-calendar-check-fill"> </i>Created At
-                                <%=element.createdAt%>
-                            </small>
-                            <br>
-                            <small><i class="bi bi-calendar-check-fill"> </i>Last Updated
-                                <%=element.updatedAt%></small>
-                            <br>
-                            <small><i class="bi bi-bar-chart-fill"> </i><%=element.clicks%> Total Engagements</small>
-                            <br>
-                            <small><i class="bi bi-arrow-return-right"> </i> Original Url </small> <br>
-                            <code>
-                                <%=element.originalUrl%>
-                            </code>
-                        </div>
-                        <div class="btn-group align-items-center mx-2 px-1">
-                            <button type="button" class="btn btn-link p-2 m-1 text-decoration-none">
-                                <i
-                                    class="bi bi-heart d-flex align-items-center justify-content-center text-secondary"></i>
-                            </button>
-                            <button type="button" class="btn btn-link p-2 m-1 text-decoration-none">
-                                <i
-                                    class="bi bi-chat d-flex align-items-center justify-content-center text-secondary"></i>
-                            </button>
-                            <button type="button" class="btn btn-link p-2 m-1 text-decoration-none">
-                                <i
-                                    class="bi bi-bookmark d-flex align-items-center justify-content-center text-secondary"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <% }) %>
-            </div>
-            <div class="col-xl-4 col-md-6 col-sm-12">
-                <% (data[2]).forEach((element,index) => { %>
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-body">
-                            <h4 class="card-title"><%=element.title%></h4>
-                            <small><i class="bi bi-link-45deg"> </i>
-                                <% if (element.customUrl) { %>
-                                <code>
-                                    <%=element.customUrl%>
-                                </code>
-                                <% } else { %>
-                                <code>
-                                    <%=element.shortUrl%>
-                                </code>
-                                <% } %>
-                            </small>
-                            <br>
-                            <small><i class="bi bi-calendar-check-fill"> </i>Created At
-                                <%=element.createdAt%>
-                            </small>
-                            <br>
-                            <small><i class="bi bi-calendar-check-fill"> </i>Last Updated
-                                <%=element.updatedAt%></small>
-                            <br>
-                            <small><i class="bi bi-bar-chart-fill"> </i><%=element.clicks%> Total Engagements</small>
-                            <br>
-                            <small><i class="bi bi-arrow-return-right"> </i> Original Url </small> <br>
-                            <code>
-                                <%=element.originalUrl%>
-                            </code>
-                        </div>
-                        <div class="btn-group align-items-center mx-2 px-1">
-                            <button type="button" class="btn btn-link p-2 m-1 text-decoration-none">
-                                <i
-                                    class="bi bi-heart d-flex align-items-center justify-content-center text-secondary"></i>
-                            </button>
-                            <button type="button" class="btn btn-link p-2 m-1 text-decoration-none">
-                                <i
-                                    class="bi bi-chat d-flex align-items-center justify-content-center text-secondary"></i>
-                            </button>
-                            <button type="button" class="btn btn-link p-2 m-1 text-decoration-none">
-                                <i
-                                    class="bi bi-bookmark d-flex align-items-center justify-content-center text-secondary"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <% }) %>
-            </div>
+
         </div>
     </section>
 </div>

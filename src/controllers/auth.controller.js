@@ -26,10 +26,20 @@ class AuthController {
       });
 
       if (fetchApiLogin.status === 200) {
-        res.cookie("token", fetchApiLogin.data.data.token, {
+        res.cookie("accessToken", fetchApiLogin.data.token.accessToken, {
           maxAge: 1000 * 60 * 60 * 24 * 7,
           httpOnly: true,
         });
+        res.cookie("refreshToken", fetchApiLogin.data.token.refreshToken, {
+          maxAge: 1000 * 60 * 60 * 24 * 7,
+          httpOnly: true,
+        });
+
+        res.cookie("user", fetchApiLogin.data.data.name, {
+          maxAge: 1000 * 60 * 60 * 24 * 7,
+          httpOnly: true,
+        });
+
         res.redirect("/link");
       }
     } catch (error) {
@@ -39,7 +49,9 @@ class AuthController {
 
   static async logout(req, res, next) {
     try {
-      res.clearCookie("token");
+      res.clearCookie("accessToken");
+      res.clearCookie("refreshToken");
+      res.clearCookie("user");
       res.render("auth/login", {
         layout: "layouts/auth",
       });

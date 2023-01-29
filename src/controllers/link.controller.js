@@ -9,7 +9,7 @@ class LinkController {
         method: "get",
         url: API_URL + "/link",
         headers: {
-          Authorization: req.cookies.token,
+          Authorization: req.cookies.accessToken,
         },
       });
 
@@ -19,15 +19,15 @@ class LinkController {
       data.data.data.forEach((element) => {
         switch (temp) {
           case 1:
-            result[0].push(element);
-            temp++;
-            break;
-          case 2:
             result[1].push(element);
             temp++;
             break;
-          default:
+          case 2:
             result[2].push(element);
+            temp++;
+            break;
+          default:
+            result[0].push(element);
             temp = 1;
             break;
         }
@@ -49,7 +49,7 @@ class LinkController {
         method: "post",
         url: API_URL + "/link/short",
         headers: {
-          Authorization: req.cookies.token,
+          Authorization: req.cookies.accessToken,
         },
         data: {
           title,
