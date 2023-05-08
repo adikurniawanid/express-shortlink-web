@@ -8,5 +8,6 @@ const router = express.Router();
 router.get("/", authorization, LinkController.list);
 router.post("/", authorization, LinkController.create);
 router.get("/:shortLink/delete", authorization, LinkController.remove);
+router.get("/:shortLink/favorite", authorization, LinkController.favorite);
 
 module.exports = router;

@@ -65,8 +65,11 @@
                         </div>
                         <div class="btn-group align-items-center mx-2 px-1">
                             <button type="button" class="btn btn-link p-2 m-1 text-decoration-none">
-                                <i
-                                    class="bi bi-heart d-flex align-items-center justify-content-center text-secondary"></i>
+                                <a href="/link/<%=element.shortUrl%>/favorite">
+                                    <i class="bi <%= element.isFavorite ? 'bi-heart-fill text-danger' : 'bi-heart'  %> d-flex
+                                        align-items-center
+                                        justify-content-center text-secondary"></i>
+                                </a>
                             </button>
                             <button type="button" class="btn btn-link p-2 m-1 text-decoration-none">
                                 <i

@@ -81,6 +81,24 @@ class LinkController {
       next(error);
     }
   }
+
+  static async favorite(req, res, next) {
+    try {
+      const shortLink = req.params.shortLink;
+      const data = await axios({
+        method: "patch",
+        url: API_URL + "/link/" + shortLink,
+        headers: {
+          Authorization: req.cookies.accessToken,
+        },
+      });
+
+      req.flash("msg", "Link favorited successfully");
+      res.redirect("/link");
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 module.exports = LinkController;
